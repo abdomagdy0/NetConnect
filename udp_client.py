@@ -6,8 +6,14 @@ target_port = 9998
 
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # send some data
-client.sendto(b"AAABBBCCC",(target_host,target_port))
+
+try:
+    client.sendto(b"AAABBBCCC",(target_host,target_port))
+    data, addr = client.recvfrom(4096)
+    print(data.decode())
+
+except:
+    print("Connection Error ")
 # receive some data
-data, addr = client.recvfrom(4096)
-print(data.decode())
+
 client.close()
